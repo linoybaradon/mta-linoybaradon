@@ -29,7 +29,7 @@ public class Mta_linoybaradonServlet extends HttpServlet {
 		
 		double exp = 13;
 		double base = 20;
-		long result;
+		float result;
 		
 		result = (long) Math.pow(base, exp);
 		
