@@ -7,8 +7,8 @@ import javax.servlet.http.*;
 public class Mta_linoybaradonServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		resp.setContentType("text/html");
 		
+		resp.setContentType("text/html");
 		
 		
 		int radius = 50;
@@ -19,7 +19,7 @@ public class Mta_linoybaradonServlet extends HttpServlet {
 		
 		double opposite;
 		double hypotenuse = 50;
-		double angleB=30;
+		double angleB = 30;
 		double angleBInRadian = angleB*(Math.PI/180);
 		
 		opposite = Math.sin(angleBInRadian)*hypotenuse;
