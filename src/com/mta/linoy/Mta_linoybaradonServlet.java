@@ -9,9 +9,25 @@ public class Mta_linoybaradonServlet extends HttpServlet {
 			throws IOException {
 		
 		resp.setContentType("text/html");
+
 		
+	//exercise 2:// 
 		
-		int radius = 50;
+	int num1 = 4 ;
+	int num2 = 3 ;
+	int num3 = 7 ;	
+	
+	int result1 = (num1+num2)* num3; 
+	
+	String resultStr1 = new String ("<h1>Result of ( "+num1+"+"+num2+") * "+num3+" = "+result1+"</h1>");
+	
+	resp.getWriter().println(resultStr1);
+	
+	
+	
+	//exercise 3: //
+	
+	int radius = 50;
 		double area = radius*radius*Math.PI;
 		
 		String line1 = new String("Calculation 1: Area of circle with radius "+radius+" is: "+area+" square cm");
