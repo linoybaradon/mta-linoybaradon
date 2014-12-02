@@ -1,4 +1,4 @@
-package com.mta.linoy;
+package com.mta.linoy.model;
 
 public class Stock {
 	
@@ -43,8 +43,8 @@ public class Stock {
 	
 	public String stockHtmlDetailsString() {
 		 
-		String stockHtmlDetailsString = "<b>Stock symbol</b>: "+getSymbol()+ ",<b>Ask</b>: "+getAsk()+ " ,<b>Bid</b>: "+getBid()+
-				                         "<b>Date</b>: " + date;
+		String stockHtmlDetailsString = "<b>Stock symbol</b>:  "  +getSymbol()+   " ,<b>Ask</b>:   "  +getAsk()+   "  ,<b>Bid</b>:  " +getBid()+
+				                         "<b>Date</b>:   "  + date;
 	
 		return stockHtmlDetailsString;
 	}	
