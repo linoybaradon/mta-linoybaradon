@@ -3,8 +3,9 @@ package com.mta.linoy.model;
 import java.util.Date;
 /**
  * 
- * @author linoy
- *
+ * @author Linoy Baradon
+ * @description this class defines variables and methods like addStock, 
+ * it also has an inner class StockStatus.
  */
 public class Portfolio {
 

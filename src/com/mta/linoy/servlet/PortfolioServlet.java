@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.mta.linoy.model.Portfolio;
 import com.mta.linoy.model.Stock;
 import com.mta.linoy.service.PortfolioService;
+/**
+ * 
+ * @author Linoy Baradon
+ * @description this class gets Portfolio and print the values.
+ */
 
 public class PortfolioServlet extends HttpServlet {
 

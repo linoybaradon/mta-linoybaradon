@@ -5,6 +5,12 @@ import java.util.Date;
 import com.mta.linoy.model.Portfolio;
 import com.mta.linoy.model.Stock;
 
+/**
+ * 
+ * @author Linoy Baradon
+ * @description this class defines new Portfolio and sets values into Portfolio.
+ * 
+ */
 public class PortfolioService {
 
 	Portfolio myPortfolio = new Portfolio();
