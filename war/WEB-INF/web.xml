@@ -4,32 +4,15 @@ xmlns="http://java.sun.com/xml/ns/javaee"
 xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
-	<servlet>
-		<servlet-name>Mta_linoybaradon</servlet-name>
-		<servlet-class>com.mta.linoy.Mta_linoybaradonServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Mta_linoybaradon</servlet-name>
-		<url-pattern>/mta_linoybaradon</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>classEx4Servlet</servlet-name>
-		<servlet-class>com.mta.linoy.ClassEx4Servlet</servlet-class>
-	</servlet>
-	
-	<servlet-mapping>
-		<servlet-name>classEx4Servlet</servlet-name>
-		<url-pattern>/stockDetails</url-pattern>
-	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>PortfolioServlet</servlet-name>
 		<servlet-class>com.mta.linoy.servlet.PortfolioServlet</servlet-class>
 	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>PortfolioServlet</servlet-name>
-		<url-pattern>/portfolio</url-pattern>
+		<url-pattern>/PortfolioServlet</url-pattern>
 	</servlet-mapping>
 	
 	<welcome-file-list>
