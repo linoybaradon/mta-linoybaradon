@@ -52,29 +52,11 @@ public class Portfolio {
 	public Portfolio(){
 		stocks = new Stock[MAX_PORTFOLIO_SIZE];
 		setStocksStatus(new StockStatus[MAX_PORTFOLIO_SIZE]);
-	}
-
-	/**
-	 * copy constructor( portfolio)
-	 **/
-
-	public Portfolio (Portfolio portfolio){
-
-		portfolioSize = portfolio.portfolioSize;
-		this.title = portfolio.getTitle();
-
-
-		for(int i = 0; i < 3; i++)
-		{
-			stocks[i] = new Stock(portfolio.getStocks()[i]);
-			stocksStatus[i] = new StockStatus(portfolio.getStocksStatus()[i]);
-		}
-	}
-
+	}	
 
 	/**
 	 * constructor
-	 **/
+	 **/               
 
 	public Portfolio(String title1,Stock[] stocks1,StockStatus[] stockStatus1,int portfolioSize1){
 		setTitle(title1);
@@ -156,28 +138,31 @@ public class Portfolio {
 		 */
 
 		public StockStatus (String symbol1,float currentBid1,float currentAsk1, Date date1, int recommendation1, int stockQuantity1 ){
+			
 			setSymbol(symbol);
 			setCurrentBid(currentBid1);
 			setCurrentAsk(currentAsk1);
 			setDate(date1);
 			setRecommendation(recommendation1);
 			setStockQuantity(stockQuantity1);
-
+			
 		}
 
 		/**
 		 * copy constructor
 		 **/
 
-
 		public StockStatus(StockStatus stockStatus){
 			{
-				this.symbol = stockStatus.symbol;
-				this.currentAsk = stockStatus.currentAsk;
-				this.currentAsk = stockStatus.currentBid;
-				this.date = stockStatus.date;
-				this.recommendation = stockStatus.recommendation;
-				this.stockQuantity = stockStatus.stockQuantity;
+				if(this.symbol != null){
+					this.symbol = stockStatus.symbol;
+					this.currentAsk = stockStatus.currentAsk;
+					this.currentAsk = stockStatus.currentBid;
+					this.date = stockStatus.date;
+					this.recommendation = stockStatus.recommendation;
+					this.stockQuantity = stockStatus.stockQuantity;
+
+				}
 			}
 		}
 
