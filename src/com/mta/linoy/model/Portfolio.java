@@ -61,13 +61,16 @@ public class Portfolio {
 	public Portfolio (Portfolio portfolio){
 
 		portfolioSize = portfolio.portfolioSize;
-		stocks = new Stock[MAX_PORTFOLIO_SIZE];
+		this.title = portfolio.getTitle();
+
 
 		for(int i = 0; i < 3; i++)
 		{
-			stocks[i] = new Stock(portfolio.stocks[i]);
+			stocks[i] = new Stock(portfolio.getStocks()[i]);
+			stocksStatus[i] = new StockStatus(portfolio.getStocksStatus()[i]);
 		}
-	}	
+	}
+
 
 	/**
 	 * constructor
@@ -124,6 +127,7 @@ public class Portfolio {
 		return getHtmlString;
 	}
 
+
 	/**
 	 * An inner class
 	 * @author Linoy Baradon
@@ -141,16 +145,30 @@ public class Portfolio {
 
 
 		/**
-		 *constructor
+		 *An empty constructor
 		 *stockStatus 
 		 **/
 		public StockStatus(){
+		}
+		
+		/*
+		 * constructor stockStatus
+		 */
+		
+		public StockStatus (String symbol1,float currentBid1,float currentAsk1, Date date1, int recommendation1, int stockQuantity1 ){
+			setSymbol(symbol);
+			setCurrentBid(currentBid1);
+			setCurrentAsk(currentAsk1);
+			setDate(date1);
+			setRecommendation(recommendation1);
+			setStockQuantity(stockQuantity1);
 
 		}
 
 		/**
 		 * copy constructor
 		 **/
+
 
 		public StockStatus(StockStatus stockStatus){
 			{
