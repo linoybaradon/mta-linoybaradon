@@ -150,11 +150,11 @@ public class Portfolio {
 		 **/
 		public StockStatus(){
 		}
-		
+
 		/*
 		 * constructor stockStatus
 		 */
-		
+
 		public StockStatus (String symbol1,float currentBid1,float currentAsk1, Date date1, int recommendation1, int stockQuantity1 ){
 			setSymbol(symbol);
 			setCurrentBid(currentBid1);

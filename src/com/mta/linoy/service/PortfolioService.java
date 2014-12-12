@@ -18,7 +18,7 @@ public class PortfolioService {
 		Portfolio myPortfolio = new Portfolio();
 		Date update = new java.util.Date ();
 
-		
+
 
 		update.setDate(15);
 		update.setMonth(10);
@@ -27,7 +27,7 @@ public class PortfolioService {
 		update.setMinutes(0);
 		update.setSeconds(0);
 
-		
+
 		Stock option1 = new Stock ("PIH", 12.4f, 13.1f, update);
 		Stock option2 = new Stock ("AAL",5.5f,5.78f,update);
 		Stock option3 = new Stock ("CAAS",31.5f,31.2f,update);
