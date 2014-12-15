@@ -30,7 +30,7 @@ public class PortfolioServlet extends HttpServlet {
 		Portfolio portfolio2 = new Portfolio(); 
 
 		resp.getWriter().println(portfolio.getHtmlString() + "<br>");
-		portfolio2.setTitle("<h1>Portfolio 2</h1>");
+		portfolio2.setTitle("<h1>Portfolio #2</h1>");
 		resp.getWriter().println(portfolio2.getHtmlString() + "<br>");
 
 		portfolio.removeStock(0);
@@ -38,7 +38,7 @@ public class PortfolioServlet extends HttpServlet {
 		resp.getWriter().println(portfolio.getHtmlString() + "<br>");
 		resp.getWriter().println(portfolio2.getHtmlString() + "<br>");
 
-		portfolio2.getStocks()[2].setBid(55.55f);
+	//	portfolio2.getStocks()[2].setBid(55.55f);
 		resp.getWriter().println("                                                     ");
 		resp.getWriter().println(portfolio.getHtmlString() + "<br>");
 		resp.getWriter().println(portfolio2.getHtmlString() + "<br>");

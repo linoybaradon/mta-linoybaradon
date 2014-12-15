@@ -43,9 +43,13 @@ public class Stock {
 	public void setDate(java.util.Date date) {
 		this.date = date;
 	}
+	
+	/**empty c'tor
+	 */
 
+	public Stock(){}
 
-	/*
+	/**
 	 * A copy constructor (Stock)
 	 */
 	public Stock (Stock stock){
@@ -53,7 +57,7 @@ public class Stock {
 		setSymbol(stock.getSymbol());
 		setAsk(stock.getAsk());
 		setBid(stock.getBid());
-		setDate(stock.getDate());
+		date = new java.util.Date(stock.date.getTime());
 
 	}
 
