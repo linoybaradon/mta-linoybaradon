@@ -25,6 +25,9 @@ public class PortfolioService {
 		update.setHours(0);
 		update.setMinutes(0);
 		update.setSeconds(0);
+		
+		myPortfolio.setTitle("Exercise 7 portfolio");
+		myPortfolio.updateBalance(10000);
 
 		Stock option1 = new Stock();
 		option1.setSymbol("PIH");
@@ -49,8 +52,15 @@ public class PortfolioService {
 		myPortfolio.addStock(option2);
 		myPortfolio.addStock(option3);
 
-		myPortfolio.setTitle("<h1>Portfolio #1</h1>");
+		
+		myPortfolio.buyStock("PIH", 20);
+		myPortfolio.buyStock("AAL", 30);
+		myPortfolio.buyStock("CAAS",40);
 
+		myPortfolio.sellStock("AAL", -1);
+		myPortfolio.removeStock("CAAS");
+
+		
 		return myPortfolio;
 	}
 }

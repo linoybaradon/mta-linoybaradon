@@ -65,12 +65,10 @@ public class Stock {
 
 	public Stock(String stockSymbol1, float ask1, float bid1, Date date1) {
 
-		{
 			setSymbol(stockSymbol1);
 			setAsk(ask1);
 			setBid(bid1);
 			setDate(date1);
-		}
 	}
 
 
