@@ -26,25 +26,25 @@ public class PortfolioService {
 		update.setMinutes(0);
 		update.setSeconds(0);
 		
-		myPortfolio.setTitle("Exercise 7 portfolio");
+		myPortfolio.setTitle("Exercise 7 portfolio<br>");
 		myPortfolio.updateBalance(10000);
 
 		Stock option1 = new Stock();
 		option1.setSymbol("PIH");
-		option1.setAsk(12.4f);
-		option1.setBid(13.1f);
+		option1.setAsk(10f);
+		option1.setBid(8.5f);
 		option1.setDate(update);
 
 		Stock option2 = new Stock();
 		option2.setSymbol("AAL");
-		option2.setAsk(5.5f);
-		option2.setBid(5.78f);
+		option2.setAsk(30f);
+		option2.setBid(25.5f);
 		option2.setDate(update);
 
 		Stock option3 = new Stock();
 		option3.setSymbol("CAAS");
-		option3.setAsk(31.5f);
-		option3.setBid(31.2f);
+		option3.setAsk(20f);
+		option3.setBid(15.5f);
 		option3.setDate(update);
 
 
