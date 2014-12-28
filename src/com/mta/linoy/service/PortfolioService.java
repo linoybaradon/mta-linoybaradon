@@ -19,8 +19,8 @@ public class PortfolioService {
 
 		Date update = new java.util.Date ();
 
-		update.setDate(15);
-		update.setMonth(10);
+		update.setDate(28);
+		update.setMonth(11);
 		update.setYear(114);
 		update.setHours(0);
 		update.setMinutes(0);
