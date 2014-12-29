@@ -9,7 +9,7 @@ public class Stock {
 	private float bid;
 	private java.util.Date date;
 
-
+	
 	//getters and setters:
 
 	public String getSymbol() {

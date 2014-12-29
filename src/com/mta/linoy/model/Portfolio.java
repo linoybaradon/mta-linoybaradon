@@ -1,12 +1,16 @@
 package com.mta.linoy.model;
 
-//import java.util.Date;
+/**
+ * This class represent portfolio of srocks
+   it contains methods that performs various 
+   operations on stocks 
+   @author : Linoy Baradon
+ */
 
 public class Portfolio {
 
 	private final static int MAX_PORTFOLIO_SIZE = 5;
 	private String title;
-	//private Stock[] stocks;
 	public StockStatus[] arrayOfStocksStatus;
 	private int portfolioSize = 0; 
 	public enum ALGO_RECOMMENDATION{
@@ -18,49 +22,49 @@ public class Portfolio {
 
 
 	/**
-	 * constructor
-	 *  portfolio 
+	 *  an empty constructor
+	 *  Portfolio 
 	 */
 
 	public Portfolio(){
-		//stocks = new Stock[MAX_PORTFOLIO_SIZE];
 		arrayOfStocksStatus = new StockStatus[MAX_PORTFOLIO_SIZE];
 	}	
 
+
 	/**
-	 * constructor
+	 * Constructor
 	 **/               
 
 	public Portfolio(String title1,Stock[] stocks1,StockStatus[] stockStatus1,int portfolioSize1,float balance){
 
 		setTitle(title1);
-		//setStocks(stocks1);
 		setStocksStatus(stockStatus1);
 		setPortfolioSize(portfolioSize1);		
 		setBalance(balance);
 	}
 
+
 	/**
-	 * copy c'tor
+	 * Copy c'tor
 	 */
 
 	public Portfolio(Portfolio portfolio){
 		this ();
 		this.title = portfolio.getTitle();
 		this.portfolioSize = portfolio.getPortfolioSize();
-		//this.stocks = new Stock[MAX_PORTFOLIO_SIZE];
 		this.arrayOfStocksStatus = new StockStatus[MAX_PORTFOLIO_SIZE];
 		this.balance = portfolio.balance;
 
 		for(int i = 0; i < portfolio.portfolioSize; i++)
 		{
-			//this.stocks[i] = new Stock (portfolio.getStocks()[i]);
+
 			this.arrayOfStocksStatus[i] = new StockStatus(portfolio.getStocksStatus()[i]);
 		}
 	}
 
-	/*
-	 * updating the balance by adding positive or negative values
+
+	/**
+	 * Updating the balance by adding positive or negative values
 	 */
 
 	public void updateBalance (float amount){
@@ -69,9 +73,10 @@ public class Portfolio {
 
 	}
 
+
 	/**
-	 * Adds stock to the stocks array.
-	 * portfolioSize is a counter of stocks in the array.
+	 * Adds stock to the stockstatus array,
+	   portfolioSize is a counter of stocks in the array.
 	 **/
 
 	public void addStock(Stock stock){
@@ -90,8 +95,7 @@ public class Portfolio {
 			return;
 		}
 
-		//stocks[portfolioSize] = stock;
-		arrayOfStocksStatus[portfolioSize]= new StockStatus(stock.getSymbol(),stock.getBid(),stock.getAsk(),stock.getDate(), ALGO_RECOMMENDATION.DO_NOTHING, 0);
+		arrayOfStocksStatus[portfolioSize]= new StockStatus(stock.getSymbol(),stock.getAsk(),stock.getBid(),stock.getDate(), ALGO_RECOMMENDATION.DO_NOTHING, 0);
 		portfolioSize++;
 	}
 
@@ -99,9 +103,8 @@ public class Portfolio {
 	/**
 	 * Remove stock
 	 * first, sell the stocks
-	 * second removes stock from stocks array and reduce portfolio size 
+	   second removes stock from stockstatus array and reduce portfolio size 
 	 **/
-
 
 	public boolean removeStock (String symbol){
 
@@ -110,13 +113,13 @@ public class Portfolio {
 				boolean sell = sellStock(symbol,arrayOfStocksStatus[i].getStockQuantity());
 				if (sell == true){
 					if (i!= portfolioSize){
-						//stocks[i]= stocks[portfolioSize];
+
 						arrayOfStocksStatus[i] = arrayOfStocksStatus[portfolioSize];
-						//stocks[portfolioSize] = null;
+
 						arrayOfStocksStatus[portfolioSize] = null;
 
 					}else{
-						//stocks[i] = null;
+
 						arrayOfStocksStatus[i] = null;
 					}
 					portfolioSize--;
@@ -132,9 +135,11 @@ public class Portfolio {
 		return false;
 	}
 
-	/*
+
+	/**
 	 * sell stock only if the stock exists
 	 */
+
 	public boolean sellStock(String symbol, int quantity){
 
 		if (quantity < -1){
@@ -163,9 +168,11 @@ public class Portfolio {
 		return false;
 	}
 
-	/*
-	 * buy stock only if it exists and if there is enough balance
+
+	/**
+	 * buy stock only if it exists and only if there is enough balance
 	 */
+
 	public boolean buyStock(String symbol,int quantity){
 
 		int availableNumOfQuantity = (int) (balance / quantity) ;
@@ -195,9 +202,11 @@ public class Portfolio {
 		return false;
 	}
 
-	/*
+
+	/**
 	 * calculate the the total value of stocks 
 	 */
+
 	float getStocksValue (Stock stock[]){
 
 		float stockValue = 0;
@@ -207,9 +216,11 @@ public class Portfolio {
 		return stockValue;
 	}
 
-	/*
+
+	/**
 	 * calculate total value of stocks and balance
 	 */
+
 	float getTotalValue (Stock stock[]){
 		float totalValue = 0;
 		totalValue = getStocksValue(arrayOfStocksStatus)+ getBalance();
@@ -233,7 +244,6 @@ public class Portfolio {
 
 		return getHtmlString;
 	}
-
 
 
 	//getters and setters: 

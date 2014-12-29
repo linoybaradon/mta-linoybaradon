@@ -25,7 +25,7 @@ public class PortfolioService {
 		update.setHours(0);
 		update.setMinutes(0);
 		update.setSeconds(0);
-		
+
 		myPortfolio.setTitle("Exercise 8 portfolio<br>");
 		myPortfolio.updateBalance(10000);
 
@@ -52,7 +52,7 @@ public class PortfolioService {
 		myPortfolio.addStock(option2);
 		myPortfolio.addStock(option3);
 
-		
+
 		myPortfolio.buyStock("PIH", 20);
 		myPortfolio.buyStock("AAL", 30);
 		myPortfolio.buyStock("CAAS",40);
@@ -60,7 +60,7 @@ public class PortfolioService {
 		myPortfolio.sellStock("AAL", -1);
 		myPortfolio.removeStock("CAAS");
 
-		
+
 		return myPortfolio;
 	}
 }
