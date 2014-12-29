@@ -26,7 +26,7 @@ public class PortfolioService {
 		update.setMinutes(0);
 		update.setSeconds(0);
 		
-		myPortfolio.setTitle("Exercise 7 portfolio<br>");
+		myPortfolio.setTitle("Exercise 8 portfolio<br>");
 		myPortfolio.updateBalance(10000);
 
 		Stock option1 = new Stock();

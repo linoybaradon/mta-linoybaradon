@@ -49,6 +49,18 @@ public class Stock {
 
 	public Stock(){}
 
+	
+	//constructor:
+
+	public Stock(String stockSymbol1, float ask1, float bid1, Date date1) {
+
+			setSymbol(stockSymbol1);
+			setAsk(ask1);
+			setBid(bid1);
+			setDate(date1);
+	}
+
+
 	/**
 	 * A copy constructor (Stock)
 	 */
@@ -61,17 +73,7 @@ public class Stock {
 
 	}
 
-	//constructor:
-
-	public Stock(String stockSymbol1, float ask1, float bid1, Date date1) {
-
-			setSymbol(stockSymbol1);
-			setAsk(ask1);
-			setBid(bid1);
-			setDate(date1);
-	}
-
-
+	
 	//print stock's name
 
 	public String stockHtmlDetailsString() {
