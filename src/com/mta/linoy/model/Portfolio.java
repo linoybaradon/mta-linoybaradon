@@ -277,9 +277,7 @@ public class Portfolio {
 		return balance;
 	}
 
-	public void setBalance(float balance) {
-		this.balance = balance;
-	}
+
 
 }
 

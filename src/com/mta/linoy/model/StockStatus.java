@@ -11,7 +11,6 @@ import com.mta.linoy.model.Portfolio.ALGO_RECOMMENDATION;
 
 public class StockStatus extends Stock {
 
-
 	public  ALGO_RECOMMENDATION recommendation;
 	public int stockQuantity;
 
