@@ -1,5 +1,11 @@
 package com.mta.linoy.model;
 
+import exception.BalanceException;
+import exception.PortfolioFullException;
+import exception.StockAlreadyExistsException;
+import exception.StockNotExistException;
+
+
 /**
  * This class represent portfolio of srocks
    it contains methods that performs various 
@@ -77,22 +83,23 @@ public class Portfolio {
 	/**
 	 * Adds stock to the stockstatus array,
 	   portfolioSize is a counter of stocks in the array.
+	 * @throws StockAlreadyExistsExeption
+	 * @throws PortfolioFullException 
 	 **/
 
-	public void addStock(Stock stock){
+	public void addStock(Stock stock)throws StockAlreadyExistsException, PortfolioFullException{
 
-		for(int i = 0; i < portfolioSize; i++){
-			if(stock.getSymbol().equals(arrayOfStocksStatus[i].getSymbol()) ){
-
-				System.out.println("The stock exists already");
-				return;
-			}
+		for(int i = 0; i < MAX_PORTFOLIO_SIZE; i++){
+			StockStatus stockStatus = arrayOfStocksStatus[i];
+			if(stockStatus == null) continue;
+			
+			if(stock.getSymbol().equals(stockStatus.getSymbol())){
+				throw new StockAlreadyExistsException(stockStatus.getSymbol());
+			}			
 		}
 
-		if(portfolioSize >= MAX_PORTFOLIO_SIZE)
-		{
-			System.out.println ("Sorry can't add a new stock, portfolio can have only" +MAX_PORTFOLIO_SIZE+" stocks");
-			return;
+		if(portfolioSize >= MAX_PORTFOLIO_SIZE){
+			throw new PortfolioFullException();
 		}
 
 		arrayOfStocksStatus[portfolioSize]= new StockStatus(stock.getSymbol(),stock.getAsk(),stock.getBid(),stock.getDate(), ALGO_RECOMMENDATION.DO_NOTHING, 0);
@@ -104,35 +111,37 @@ public class Portfolio {
 	 * Remove stock
 	 * first, sell the stocks
 	   second removes stock from stockstatus array and reduce portfolio size 
+	 * @throws StockNotExistException 
 	 **/
 
-	public boolean removeStock (String symbol){
+	public void removeStock (String symbol) throws StockNotExistException{
 
 		for (int i = 0; i < portfolioSize; i++) {
 			if (arrayOfStocksStatus[i].getSymbol().equals(symbol)){
-				boolean sell = sellStock(symbol,arrayOfStocksStatus[i].getStockQuantity());
-				if (sell == true){
-					if (i!= portfolioSize){
+				sellStock(symbol,arrayOfStocksStatus[i].getStockQuantity());
 
-						arrayOfStocksStatus[i] = arrayOfStocksStatus[portfolioSize];
+				if (i!= portfolioSize){
 
-						arrayOfStocksStatus[portfolioSize] = null;
+					arrayOfStocksStatus[i] = arrayOfStocksStatus[portfolioSize];
 
-					}else{
+					arrayOfStocksStatus[portfolioSize] = null;
 
-						arrayOfStocksStatus[i] = null;
-					}
-					portfolioSize--;
-					return true;
 				}
 				else{
-					System.out.println("The stock can't be removed, the sell didn't success");
-					return false;
+
+					arrayOfStocksStatus[i] = null;
 				}
+				portfolioSize--;
+				System.out.println("The stock " +arrayOfStocksStatus[i].getSymbol()+ " was removed sucessfully");
 			}
+			else{
+				System.out.println("The stock can't be removed, the sell didn't success");
+
+			}
+
 		}
-		System.out.println("The stock is not exists");
-		return false;
+
+		throw new StockNotExistException();
 	}
 
 
@@ -140,40 +149,43 @@ public class Portfolio {
 	 * sell stock only if the stock exists
 	 */
 
-	public boolean sellStock(String symbol, int quantity){
+	public void sellStock(String symbol, int quantity){
 
 		if (quantity < -1){
 			System.out.println("Quantity can't be negative");
-			return false;
+
 		}
 
 		for (int i = 0; i < portfolioSize; i++) {
 			if (arrayOfStocksStatus[i].getSymbol().equals(symbol)){
 				if (quantity == -1 ){
 					updateBalance(arrayOfStocksStatus[i].getStockQuantity()*arrayOfStocksStatus[i].getBid());
+					System.out.println(arrayOfStocksStatus[i].getStockQuantity() + " Stocks of " +symbol+ " were sold");
 					arrayOfStocksStatus[i].setStockQuantity(0);
-					return true;
+
 				}
 				else if(quantity!=-1 && arrayOfStocksStatus[i].getStockQuantity() <= quantity){
 					arrayOfStocksStatus[i].setStockQuantity(arrayOfStocksStatus[i].getStockQuantity() - (quantity));
 					updateBalance((quantity*arrayOfStocksStatus[i].getBid()));
-					return true;
+					System.out.println(quantity + " Stocks of " +symbol+ " were sold");
 				}
 				else{ 
 					System.out.println("You don't have enough stocks to sell");
-					return false;
+
 				}
 			}
 		}
-		return false;
+
 	}
 
 
 	/**
 	 * buy stock only if it exists and only if there is enough balance
+	 * @throws BalanceException 
+	 * @throws StockNotExistException 
 	 */
 
-	public boolean buyStock(String symbol,int quantity){
+	public void buyStock(String symbol,int quantity) throws BalanceException, StockNotExistException{
 
 		int availableNumOfQuantity = (int) (balance / quantity) ;
 
@@ -184,22 +196,25 @@ public class Portfolio {
 				if (quantity!=-1 && (balance-(arrayOfStocksStatus[i].getAsk() * quantity) >= 0)){
 					arrayOfStocksStatus[i].setStockQuantity(arrayOfStocksStatus[i].getStockQuantity() + quantity);
 					updateBalance(-(quantity*arrayOfStocksStatus[i].getAsk()));
-					return true;
+					System.out.println(this.arrayOfStocksStatus[i].getStockQuantity() + " Stocks of " +symbol+ " were bought");
+
 				}
 				else if(quantity == -1 && availableNumOfQuantity >= 1){	
 					updateBalance(-(availableNumOfQuantity * arrayOfStocksStatus[i].getAsk()));
 					arrayOfStocksStatus[i].setStockQuantity(availableNumOfQuantity);
-					return true;
+					System.out.println(this.arrayOfStocksStatus[i].getStockQuantity() + " Stocks of " +symbol+ " were bought");
+
 				}
 
 				else {
-					System.out.println("Not enough balance to complete purchase");
-					return false;
+					float purchaseAmount = quantity*arrayOfStocksStatus[i].getAsk();
+					throw new BalanceException(getBalance(),purchaseAmount); 
 				}
 			}
 		}
-		System.out.println("Sorry this stock is not exist in your portfolio");
-		return false;
+		throw new StockNotExistException();
+		//System.out.println("Sorry this stock is not exist in your portfolio");
+
 	}
 
 
@@ -215,7 +230,6 @@ public class Portfolio {
 		}
 		return stockValue;
 	}
-
 
 	/**
 	 * calculate total value of stocks and balance

@@ -8,9 +8,21 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+
+
+
+
+
+
+
 import com.mta.linoy.model.Portfolio;
 import com.mta.linoy.model.Stock;
 import com.mta.linoy.service.PortfolioService;
+
+import exception.BalanceException;
+import exception.PortfolioFullException;
+import exception.StockAlreadyExistsException;
+import exception.StockNotExistException;
 /**
  * 
  * @author Linoy Baradon
@@ -23,11 +35,17 @@ public class PortfolioServlet extends HttpServlet {
 		resp.setContentType("text/html");
 
 		PortfolioService portfolioService = new PortfolioService(); 
-		Portfolio portfolio = portfolioService.getPortfolio(); 
-		Stock[] stocks = portfolio.getStocksStatus();
+		Portfolio portfolio;
 
-		resp.getWriter().println(portfolio.getHtmlString() + "<br>");
+		try {
 
+			portfolio = portfolioService.getPortfolio();
+			resp.getWriter().println(portfolio.getHtmlString()+ "<br>");
+		
+		}  catch (Exception e) {
+			resp.getWriter().println(e.getMessage());
+		}
 	}
 
 }
+

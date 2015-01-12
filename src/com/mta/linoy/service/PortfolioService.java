@@ -15,18 +15,18 @@ public class PortfolioService {
 
 	Portfolio myPortfolio = new Portfolio();
 
-	public Portfolio getPortfolio(){
+	public Portfolio getPortfolio()throws Exception{
 
 		Date update = new java.util.Date ();
 
-		update.setDate(28);
-		update.setMonth(11);
-		update.setYear(114);
+		update.setDate(16);
+		update.setMonth(12);
+		update.setYear(115);
 		update.setHours(0);
 		update.setMinutes(0);
 		update.setSeconds(0);
 
-		myPortfolio.setTitle("Exercise 8 portfolio<br>");
+		myPortfolio.setTitle("Exercise 9 portfolio<br>");
 		myPortfolio.updateBalance(10000);
 
 		Stock option1 = new Stock();
@@ -51,7 +51,8 @@ public class PortfolioService {
 		myPortfolio.addStock(option1);
 		myPortfolio.addStock(option2);
 		myPortfolio.addStock(option3);
-
+		
+		myPortfolio.addStock(option3);
 
 		myPortfolio.buyStock("PIH", 20);
 		myPortfolio.buyStock("AAL", 30);
