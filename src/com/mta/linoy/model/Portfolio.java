@@ -1,9 +1,8 @@
 package com.mta.linoy.model;
 
-import exception.BalanceException;
-import exception.PortfolioFullException;
-import exception.StockAlreadyExistsException;
-import exception.StockNotExistException;
+import java.util.List;
+
+import com.mta.linoy.exception.StockNotExistsException;
 
 
 /**
@@ -15,7 +14,7 @@ import exception.StockNotExistException;
 
 public class Portfolio {
 
-	private final static int MAX_PORTFOLIO_SIZE = 5;
+	public final static int SIZE = 5;
 	private String title;
 	public StockStatus[] arrayOfStocksStatus;
 	private int portfolioSize = 0; 
@@ -33,7 +32,7 @@ public class Portfolio {
 	 */
 
 	public Portfolio(){
-		arrayOfStocksStatus = new StockStatus[MAX_PORTFOLIO_SIZE];
+		arrayOfStocksStatus = new StockStatus[SIZE];
 	}	
 
 
@@ -58,8 +57,8 @@ public class Portfolio {
 		this ();
 		this.title = portfolio.getTitle();
 		this.portfolioSize = portfolio.getPortfolioSize();
-		this.arrayOfStocksStatus = new StockStatus[MAX_PORTFOLIO_SIZE];
-		this.balance = portfolio.balance;
+		this.arrayOfStocksStatus = new StockStatus[SIZE];
+		this.balance = portfolio.getBalance();
 
 		for(int i = 0; i < portfolio.portfolioSize; i++)
 		{
@@ -67,7 +66,18 @@ public class Portfolio {
 			this.arrayOfStocksStatus[i] = new StockStatus(portfolio.getStocksStatus()[i]);
 		}
 	}
+	
+	
+	/**
+	 * c'tor*/
+	public Portfolio (List <StockStatus> stockStatuses){
+		this();
+		for (int i = 0; i<stockStatuses.size(); i++){
+			this.arrayOfStocksStatus[i] = stockStatuses.get(i); 
+		}
+	}
 
+	
 
 	/**
 	 * Updating the balance by adding positive or negative values
@@ -87,19 +97,19 @@ public class Portfolio {
 	 * @throws PortfolioFullException 
 	 **/
 
-	public void addStock(Stock stock)throws StockAlreadyExistsException, PortfolioFullException{
+	public void addStock(Stock stock)throws StockNotExistsException, com.mta.linoy.exception.PortfolioFullException{
 
-		for(int i = 0; i < MAX_PORTFOLIO_SIZE; i++){
+		for(int i = 0; i < SIZE; i++){
 			StockStatus stockStatus = arrayOfStocksStatus[i];
 			if(stockStatus == null) continue;
-			
+
 			if(stock.getSymbol().equals(stockStatus.getSymbol())){
-				throw new StockAlreadyExistsException(stockStatus.getSymbol());
+				throw new StockNotExistsException(stockStatus.getSymbol());
 			}			
 		}
 
-		if(portfolioSize >= MAX_PORTFOLIO_SIZE){
-			throw new PortfolioFullException();
+		if(portfolioSize >= SIZE){
+			throw new com.mta.linoy.exception.PortfolioFullException();
 		}
 
 		arrayOfStocksStatus[portfolioSize]= new StockStatus(stock.getSymbol(),stock.getAsk(),stock.getBid(),stock.getDate(), ALGO_RECOMMENDATION.DO_NOTHING, 0);
@@ -114,8 +124,10 @@ public class Portfolio {
 	 * @throws StockNotExistException 
 	 **/
 
-	public void removeStock (String symbol) throws StockNotExistException{
+	public void removeStock (String symbol) throws StockNotExistsException{
 
+		boolean isSuccess = false; 
+		
 		for (int i = 0; i < portfolioSize; i++) {
 			if (arrayOfStocksStatus[i].getSymbol().equals(symbol)){
 				sellStock(symbol,arrayOfStocksStatus[i].getStockQuantity());
@@ -125,7 +137,7 @@ public class Portfolio {
 					arrayOfStocksStatus[i] = arrayOfStocksStatus[portfolioSize];
 
 					arrayOfStocksStatus[portfolioSize] = null;
-
+					
 				}
 				else{
 
@@ -133,15 +145,18 @@ public class Portfolio {
 				}
 				portfolioSize--;
 				System.out.println("The stock " +arrayOfStocksStatus[i].getSymbol()+ " was removed sucessfully");
+				isSuccess = true;
+				break;
 			}
 			else{
-				System.out.println("The stock can't be removed, the sell didn't success");
+				//System.out.println("The stock can't be removed, the sell didn't success");
 
 			}
 
 		}
 
-		throw new StockNotExistException();
+		if(!isSuccess)
+			throw new StockNotExistsException();
 	}
 
 
@@ -185,7 +200,7 @@ public class Portfolio {
 	 * @throws StockNotExistException 
 	 */
 
-	public void buyStock(String symbol,int quantity) throws BalanceException, StockNotExistException{
+	public void buyStock(String symbol,int quantity) throws com.mta.linoy.exception.BalanceException, StockNotExistsException{
 
 		int availableNumOfQuantity = (int) (balance / quantity) ;
 
@@ -208,11 +223,11 @@ public class Portfolio {
 
 				else {
 					float purchaseAmount = quantity*arrayOfStocksStatus[i].getAsk();
-					throw new BalanceException(getBalance(),purchaseAmount); 
+					throw new com.mta.linoy.exception.BalanceException(getBalance(),purchaseAmount); 
 				}
 			}
 		}
-		throw new StockNotExistException();
+		throw new StockNotExistsException();
 		//System.out.println("Sorry this stock is not exist in your portfolio");
 
 	}
@@ -293,6 +308,22 @@ public class Portfolio {
 
 	public void setBalance(float balance) {
 		this.balance = balance;
+	}
+	public StockStatus[] getStocks() {
+		return arrayOfStocksStatus;
+	}
+
+	public StockStatus findBySymbol(String symbol) {
+		for (int i = 0; i < arrayOfStocksStatus.length; i++) {
+			StockStatus current = arrayOfStocksStatus[i];
+			if(current != null) {
+				if(current.getSymbol().equalsIgnoreCase(symbol)) {
+					return current;
+				}
+			}
+		}
+		
+		throw new RuntimeException("Stock status for symbol " + symbol + " not found!!!");
 	}
 
 }

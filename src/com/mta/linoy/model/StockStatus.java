@@ -14,8 +14,10 @@ public class StockStatus extends Stock {
 	public  ALGO_RECOMMENDATION recommendation;
 	public int stockQuantity;
 
-
 	//constructor:
+	public StockStatus() {
+		super();
+	}
 
 	public StockStatus(String stockSymbol1, float ask1, float bid1, Date date1,ALGO_RECOMMENDATION recommendation,int stockQuantity){
 		setSymbol(stockSymbol1);

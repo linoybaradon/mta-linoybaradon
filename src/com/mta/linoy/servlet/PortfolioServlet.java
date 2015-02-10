@@ -1,51 +1,38 @@
 package com.mta.linoy.servlet;
 
-import java.io.IOException;
+import com.mta.linoy.dto.PortfolioDto;
+import com.mta.linoy.dto.PortfolioTotalStatus;
+import com.mta.linoy.model.StockStatus;
 
-import javax.servlet.http.HttpServlet;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+public class PortfolioServlet extends AbstractAlgoServlet {
 
+	private static final long serialVersionUID = 1L;
 
-
-
-
-
-
-
-
-import com.mta.linoy.model.Portfolio;
-import com.mta.linoy.model.Stock;
-import com.mta.linoy.service.PortfolioService;
-
-import exception.BalanceException;
-import exception.PortfolioFullException;
-import exception.StockAlreadyExistsException;
-import exception.StockNotExistException;
-/**
- * 
- * @author Linoy Baradon
- * @description this class gets Portfolio and print the values.
- */
-
-public class PortfolioServlet extends HttpServlet {
-
-	public void doGet(HttpServletRequest req, HttpServletResponse resp)throws IOException {
-		resp.setContentType("text/html");
-
-		PortfolioService portfolioService = new PortfolioService(); 
-		Portfolio portfolio;
-
-		try {
-
-			portfolio = portfolioService.getPortfolio();
-			resp.getWriter().println(portfolio.getHtmlString()+ "<br>");
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		}  catch (Exception e) {
-			resp.getWriter().println(e.getMessage());
+		resp.setContentType("application/json");
+		
+		PortfolioTotalStatus[] totalStatus = portfolioService.getPortfolioTotalStatus();
+		StockStatus[] stockStatusArray = portfolioService.getPortfolio().getStocks();
+		List<StockStatus> stockStatusList = new ArrayList<>();
+		for (StockStatus ss : stockStatusArray) {
+			if(ss != null)
+				stockStatusList.add(ss);
 		}
+		
+		PortfolioDto pDto = new PortfolioDto();
+		pDto.setTitle(portfolioService.getPortfolio().getTitle());
+		pDto.setTotalStatus(totalStatus);
+		pDto.setStockTable(stockStatusList);
+		resp.getWriter().print(withNullObjects().toJson(pDto));
 	}
-
 }
-
